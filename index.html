@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>World Flag Challenge</title>
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌍</text></svg>" />
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
+  <!-- App Styles -->
+  <link rel="stylesheet" href="style.css" />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <span class="logo-icon">🌍</span>
+      <h1>World Flag Challenge</h1>
+    </div>
+    <div class="stats-container">
+      <div class="stat player-name-container">
+        <span class="stat-label">PLAYER</span>
+        <span class="stat-value" id="player-name">Guest</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">TIME</span>
+        <span class="stat-value" id="timer">0.0s</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">SCORE</span>
+        <span class="stat-value" id="score">0</span>
+      </div>
+      <button id="reset-btn" class="reset-btn" title="Reset game progress">
+        <span>🔄</span>
+      </button>
+    </div>
+  </header>
+
+  <div id="game-container">
+    <div id="map"></div>
+    <div id="sidebar">
+      <div id="flag-container">
+        <img id="flag-img" alt="Country flag" style="display: none;" />
+        <div id="flag-placeholder">
+          <span id="flag-placeholder-icon">🏳️</span>
+          <p>Start a new round to see the flag</p>
+        </div>
+      </div>
+
+      <div class="card selection-info">
+        <h3 class="card-title">Your Selection</h3>
+        <p class="country-name" id="selected-country">No country selected</p>
+        <div class="buttons">
+          <button id="start-btn">
+            <span>🎮</span> New Round
+          </button>
+          <button id="submit-btn" disabled>
+            <span>🎯</span> Submit
+          </button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">Round History</h3>
+        <div class="score-history" id="score-history">
+          <div class="score-item">
+            <span class="score-country">Start a new round</span>
+            <span class="score-points">-</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">
+    <span class="toast-icon">🎉</span>
+    <span id="toast-message">Toast message here</span>
+  </div>
+
+  <div id="feedback-modal">
+    <div class="modal-content">
+      <div class="feedback-icon success" id="feedback-icon">✓</div>
+      <h2 class="modal-title" id="modal-title">Correct!</h2>
+      <p class="modal-message" id="modal-message">You guessed the country correctly!</p>
+      <div class="modal-stats">
+        <div class="modal-stat">
+          <span class="modal-stat-value" id="modal-points">+100</span>
+          <span class="modal-stat-label">POINTS</span>
+        </div>
+        <div class="modal-stat">
+          <span class="modal-stat-value" id="modal-time">5.2s</span>
+          <span class="modal-stat-label">TIME</span>
+        </div>
+      </div>
+      <button class="continue-btn" id="continue-btn">Continue</button>
+    </div>
+  </div>
+
+  <div id="name-modal">
+    <div class="name-modal-content">
+      <h2 class="modal-title">Enter Your Name</h2>
+      <div class="name-input-container">
+        <input type="text" id="name-input" class="name-input" placeholder="Enter your name" maxlength="20" />
+      </div>
+      <div class="name-buttons">
+        <button class="cancel-btn" id="cancel-name-btn">Cancel</button>
+        <button class="save-btn" id="save-name-btn">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="confirm-modal">
+    <div class="confirm-modal-content">
+      <div class="confirm-icon">⚠️</div>
+      <h2 class="modal-title">Reset Game?</h2>
+      <p class="modal-message">This will reset your score and history. This action cannot be undone.</p>
+      <div class="confirm-buttons">
+        <button class="cancel-reset-btn" id="cancel-reset-btn">Cancel</button>
+        <button class="confirm-reset-btn" id="confirm-reset-btn">Reset</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="loader" id="loader">
+    <div class="spinner"></div>
+  </div>
+
+  <canvas id="confetti-canvas"></canvas>
+
+  <div class="help-btn">
+    ?
+    <div class="tooltip">
+      Click on a country that matches the displayed flag. The faster you guess, the more points you earn!
+    </div>
+  </div>
+
+  <!-- External libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <!-- App Logic -->
+  <script src="main.js"></script>
+</body>
+</html>
