@@ -24,7 +24,7 @@ A single‑page Flag‑guessing game built with **Leaflet**, vanilla **JS**, and
 
    ```bash
    git clone https://github.com/krishkpatil/Guess-Game.git
-   cd world‑flag‑challenge
+   cd Guess-Game
    ```
 
 2. **Serve** it locally (any static server)
