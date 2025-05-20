@@ -23,7 +23,7 @@ A single‑page Flag‑guessing game built with **Leaflet**, vanilla **JS**, and
 1. **Clone** the repo
 
    ```bash
-   git clone https://github.com/your‑username/world‑flag‑challenge.git
+   git clone https://github.com/krishkpatil/Guess-Game.git
    cd world‑flag‑challenge
    ```
 
